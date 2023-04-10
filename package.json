@@ -19,8 +19,6 @@
   },
   "homepage": "https://github.com/DFCruzz/poc-typescript#readme",
   "devDependencies": {
-    "@types/pg": "^8.6.6",
-    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
