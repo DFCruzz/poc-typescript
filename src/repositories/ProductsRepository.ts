@@ -11,7 +11,21 @@ async function registerProduct(productData: RegisterProductData) : Promise<Query
 
 async function getAllProducts(): Promise<QueryResult<Product>> {
     return database.query(
-        `SELECT * FROM products`
+        `SELECT * FROM products;`
+    )
+}
+
+async function getProductByName(name: string): Promise<QueryResult<Product>> {
+    return database.query(
+        `SELECT * FROM products WHERE name = $1;`,
+        [name]
+    )
+}
+
+async function getProductById(id: number): Promise<QueryResult<Product>> {
+    return database.query(
+        `SELECT * FROM products WHERE id = $1;`,
+        [id]
     )
 }
 
@@ -24,7 +38,16 @@ async function deleteProductById(id: number) {
 
 async function updateProductStock(stock: number, id: number): Promise<QueryResult<Product>> {
     return database.query(
-        `UPDATE products SET stock = $1 WHERE id = $2;`,
+        `UPDATE products SET stock = $1 WHERE id = $2 RETURNING id, name, stock;`,
         [stock, id]
     )
+}
+
+export default {
+    registerProduct,
+    getAllProducts,
+    getProductByName,
+    getProductById,
+    deleteProductById,
+    updateProductStock
 }
